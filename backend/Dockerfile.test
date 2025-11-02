@@ -1,0 +1,13 @@
+# Test Dockerfile for running tests without local Gradle installation
+FROM gradle:8-jdk17 AS build
+
+WORKDIR /app
+
+# Copy gradle files
+COPY build.gradle.kts settings.gradle.kts gradle.properties ./
+
+# Copy source code
+COPY src ./src
+
+# Run tests
+CMD ["gradle", "test", "--no-daemon", "--console=plain"]
